@@ -8,7 +8,6 @@ import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { getToken } from '../localstorage/token';
 
-
 const Header = () =>{
     const [showOffcanvas, setShowOffcanvas] = useState(false);
     const handleOffcanvasToggle = () => setShowOffcanvas(!showOffcanvas);
@@ -57,12 +56,12 @@ const Header = () =>{
                             <p>دسته بندی ها</p>
                         </Link>
                     </li>
-                    {/* <li onClick={handleCloseOffcanvas}>
+                    <li onClick={handleCloseOffcanvas}>
                         <Link to='/support' className='link-to'>
                             <span>&lsaquo;</span>
                             <p>پشتیبانی</p>
                         </Link>
-                    </li> */}
+                    </li>
                     <li onClick={handleCloseOffcanvas}>
                         <Link to='/' className='link-to' onClick={handleRemoveToken} >
                             <span>&lsaquo;</span>

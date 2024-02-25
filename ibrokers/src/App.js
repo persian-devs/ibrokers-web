@@ -58,7 +58,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/userlist" element={<Userlist />} />
             <Route path="/categori" element={<Categori />} />
-            {/* <Route path="/support" element={<Support />} /> */}
+            <Route path="/support" element={<Support />} />
             <Route path="/" element={<Login/>} />
             <Route path="/addtoGroup/:id" element={<AddUser />} />
           </Routes>
@@ -76,9 +76,9 @@ function App() {
               <Link to="/categori" className="link-nav-list">  
                 <li className={activeIndex === 2 ? 'active' : ''} onClick={() => handleClick(2)}><span className="icon-left">&lsaquo;</span>دسته بندی ها</li>
               </Link>
-              {/* <Link to="/support" className="link-nav-list">
+              <Link to="/support" className="link-nav-list">
                 <li className={activeIndex === 3 ? 'active' : ''} onClick={() => handleClick(3)}><span className="icon-left">&lsaquo;</span>پشتیبانی</li>
-              </Link> */}
+              </Link>
               <li className={activeIndex === 4 ? 'active' : ''} onClick={() => handleClick(4)}><span className="icon-left">&lsaquo;</span>خروج</li>
             </ul>
           </nav>

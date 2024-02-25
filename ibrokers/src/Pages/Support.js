@@ -81,9 +81,10 @@ export function Support() {
 
     return (
         <>
+            <div className="box-m">
             <Header/>
-            <div className="box-message">
-                <div className="inset-box-message">
+
+                <div className="box-messagee">
                     {adminchat.map((chat, index) => (
                         <div className="box-message-user" key={chat.id}>
                             <div className="user">
@@ -108,14 +109,17 @@ export function Support() {
                         </div>
                     ))}
                 </div>
-                <form onSubmit={sendMessage}>
-                    <div className="box-typing">
-                        <input value={message} className="typing" placeholder="...متن خود را بنویسید" onChange={(e) => setMessage(e.target.value)}/>
-                        <button className="box-btn-sent" type="submit">
-                            <img className="iconright" src={iconright}></img>
-                        </button>
-                    </div>
-                </form>
+
+                <div className="box-type">
+                    <form onSubmit={sendMessage}>
+                        <div className="box-typing">
+                            <input value={message} className="typing" placeholder="...متن خود را بنویسید" onChange={(e) => setMessage(e.target.value)}/>
+                            <button className="box-btn-sent" type="submit">
+                                <img className="iconright" src={iconright}></img>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </>
     )

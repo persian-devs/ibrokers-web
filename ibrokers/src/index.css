@@ -8,8 +8,10 @@ body{
 }
 .main{
   display: flex;
-  margin: 16px 16px 0;
+  margin: 16px auto 0;
   grid-gap: 16px;
+  justify-content: center;
+  max-width: 1400px;
 }
 .row-body{
   grid-column-gap: 16px;
@@ -67,7 +69,6 @@ body{
   grid-gap: 16px;
   padding-left: 0;
   padding: 16px 16px 0 0;
-
 }
 .content-right > nav > ul > Link{
   text-decoration: none !important;
@@ -699,6 +700,24 @@ select{
 /* message admin */
 
 
+.box-m{
+  /* border: 1px solid black; */
+  
+}
+.box-type{
+  /* border: 1px solid black; */
+}
+.box-messagee{
+  /* border: 1px solid black; */
+  padding: 10px 0;
+  width: 100%;
+  height: 524px;
+  margin-bottom: 8px;
+  display: grid;
+  grid-gap: 16px;
+  overflow-y: scroll !important;
+  align-content: space-between;
+}
 .typing{
   text-align: right;
   font-family: sans;
@@ -715,7 +734,7 @@ select{
   /* border: 1px solid black; */
   display: flex;
   grid-gap: 8px;
-  height: 100%;
+  height: 50px;
 }
 .typing{
   width: 100%;
@@ -1284,6 +1303,11 @@ select{
   }
   .box-items > .items{
     direction: ltr;
+  }
+  .box-messagee{
+    /* border: 1px solid black; */
+    width: 100%;
+    height: 88vh;
   }
 }
 @media screen and (max-width: 880px) {
