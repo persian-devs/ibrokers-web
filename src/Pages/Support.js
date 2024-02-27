@@ -21,32 +21,6 @@ export function Support() {
         return jalaliDate;
     };
 
-    // useEffect(() => {
-    //     console.log(getToken());
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get('https://panel.ibrokers.ir/api/chat/', {
-    //                 headers: {
-    //                     'Authorization': `Bearer ${getToken()}`
-    //                 }
-    //             });
-
-    //             // consol(response.data.results[0].content);
-
-    //             const gregorianDate = response.data.results[0].created_at;
-    //             const persianDate = convertToPersianDate(gregorianDate);
-
-    //             setDate(persianDate);
-    //             setUserChat(response.data.results[0].content);
-    //             console.log(response.data.results[0]);
-    //         } catch (error) {
-    //             console.log(error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
-
     const fetchData = async () => {
 
         let config = {
@@ -98,7 +72,7 @@ export function Support() {
 
             console.log(response.data.content);
             setMessage(response.data.content);
-            fetchData(); // بعد از ارسال پیام، اطلاعات را به‌روز کنید
+            fetchData();
             setMessage('');
         } catch (error) {
             console.log(error);
@@ -107,9 +81,10 @@ export function Support() {
 
     return (
         <>
+            <div className="box-m">
             <Header/>
-            <div className="box-message">
-                <div className="inset-box-message">
+
+                <div className="box-messagee">
                     {adminchat.map((chat, index) => (
                         <div className="box-message-user" key={chat.id}>
                             <div className="user">
@@ -134,14 +109,17 @@ export function Support() {
                         </div>
                     ))}
                 </div>
-                <form onSubmit={sendMessage}>
-                    <div className="box-typing">
-                        <input value={message} className="typing" placeholder="...متن خود را بنویسید" onChange={(e) => setMessage(e.target.value)}/>
-                        <button className="box-btn-sent" type="submit">
-                            <img className="iconright" src={iconright}></img>
-                        </button>
-                    </div>
-                </form>
+
+                <div className="box-type">
+                    <form onSubmit={sendMessage}>
+                        <div className="box-typing">
+                            <input value={message} className="typing" placeholder="...متن خود را بنویسید" onChange={(e) => setMessage(e.target.value)}/>
+                            <button className="box-btn-sent" type="submit">
+                                <img className="iconright" src={iconright}></img>
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </>
     )

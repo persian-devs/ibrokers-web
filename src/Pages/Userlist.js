@@ -6,6 +6,8 @@ import axios from "axios";
 import qs from 'qs';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrain } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 export function Userlist() {
@@ -19,6 +21,8 @@ export function Userlist() {
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [editedUser, setEditedUser] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
 
   const handleSubmit = async () => {
     try {
@@ -39,6 +43,7 @@ export function Userlist() {
 
       const response = await axios.request(config);
       setGetUserData(prevData => [...prevData, response.data]);
+      toast.success('کاربر با موفقیت اضافه شد')
       console.log(response.data);
     } catch (error) {
       console.error(error);
@@ -54,7 +59,7 @@ export function Userlist() {
         console.log(error);
       });
   }, []);
-  console.log(getUserData);
+  // console.log(getUserData);
 
   const handleDeleteClick = (id) => {
     setUserToDelete(id);
@@ -69,6 +74,7 @@ export function Userlist() {
           console.log(JSON.stringify(response.data));
           setUserToDelete(null);
           setShowDeleteModal(false);
+          toast.success('کاربر با موفقیت حذف شد')
         })
         .catch((error) => {
           console.log(error);
@@ -105,6 +111,14 @@ export function Userlist() {
     setShowEditModal(false);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const filteredUsers = getUserData.filter((user) =>
+    user.name.includes(searchTerm) ||
+    user.family.includes(searchTerm) ||
+    user.phone.includes(searchTerm) 
+  );
 
   return (
     <>
@@ -168,18 +182,8 @@ export function Userlist() {
                 اضافه کردن
               </div>
             </div>
-            <div className="col-p"> 
+            <div className="col-p-userlist"> 
               <div className="inset-col-p">
-                <div className="div-inset-col-p">
-                  <p className="p-res"> شماره تماس : </p>
-                  <input 
-                    className="input" 
-                    type="text"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    ></input>
-                  <p className="p"> : شماره تماس</p>
-                </div>
                 <div className="div-inset-col-p">
                   <p className="p-res"> نام خانوادگی : </p>
                   <input 
@@ -200,6 +204,16 @@ export function Userlist() {
                     ></input>
                   <p className="p"> : نام</p>
                 </div>
+                <div className="div-inset-col-p">
+                  <p className="p-res"> شماره تماس : </p>
+                  <input 
+                    className="input" 
+                    type="text"
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    ></input>
+                  <p className="p"> : شماره تماس</p>
+                </div>
               </div>
             </div>
             <div className=" col-input-res">
@@ -210,23 +224,27 @@ export function Userlist() {
           </div>
         </form>
       </div>
+
       <p className="title-group">لیست کاربران</p>
+      <div className="box-search-user-for-name">
+        <input
+          className="search-user-for-name"
+          type="text"
+          placeholder="جستجو"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          />
+      </div>
 
       <div className="container-list">
-        {getUserData.map(user => (
+        {filteredUsers.map(user => (
           <div className="div-list" key={user.id}>
               <div className="row-list">
                 <div className="inset-div-list-input">
                   <FontAwesomeIcon style={{marginRight: '16px'}} className="edit" icon={faEdit} onClick={() => handleEditClick(user)} />
                   <img style={{marginLeft: '16px'}} className="trash" src={trash} onClick={() => handleDeleteClick(user.id)}></img>
-                  <button type="button" class="btn-notactive btn-primary">غیر فعال</button>
-                  {/* <button type="button" class="btn-active btn-primary">فعال</button> */}
                 </div>
                 <div style={{ textAlign: 'right', fontFamily: 'sans', fontSize: '14px'}} className="inset-div-list">
-                  <div className="it-inset-div">
-                    <p> دسته بندی</p>
-                    <span>دسته بندی</span>
-                  </div>
                   <div className="it-inset-div">
                     <p> شماره موبایل</p>
                     <span>{user?.phone}</span>
@@ -245,42 +263,12 @@ export function Userlist() {
                     <FontAwesomeIcon icon={faEdit} onClick={() => handleEditClick(user)} />
                     <img style={{marginLeft: '16px'}} className="trash" src={trash} onClick={() => handleDeleteClick(user.id)}></img>
                   </div>
-                  <div>
-                    <button type="button" class="btn-notactive-res btn-primary">غیر فعال</button>
-                  </div>
-                  {/* <button type="button" class="btn-active btn-primary">فعال</button> */}
                 </div>
               </div>
           </div>
         ))}
       </div>
-      {/* <Container className="container-list">
-          <div className="div-list col-xl-12">
-            <div className="row-list">
-              <div className="inset-div-list col-xl-3">
-                <img style={{marginLeft: '16px'}} className="trash" src={trash}></img>
-                <button type="button" class="btn-notactive btn-primary">غیر فعال</button>
-                <button type="button" class="btn-active btn-primary">فعال</button>
-              </div>
-              <div style={{ textAlign: 'right', fontFamily: 'sans', fontSize: '14px'}} className="inset-div-list col-xl-9">
-                <Row>
-                  <Col style={{  paddingRight: '0', paddingLeft: '0', paddingRight: '60px'}}>
-                    <p style={{width: '100%'}}><span>   دسته بندی : </span>صنعتی / کشاورزی / خودرو</p>
-                  </Col>
-                  <Col style={{  paddingRight: '0'}}>
-                    <p><span>  شماره موبایل : </span>۰۹۳۶۲۲۹۲۵۶۸</p>
-                  </Col>
-                  <Col style={{  paddingRight: '0'}}>
-                    <p><span> نام خانوادگی : </span>حاجیان</p>
-                  </Col>
-                  <Col className="col-xl-2" style={{  paddingRight: '0', marginRight: '10px'}}>
-                    <p style={{marginRight: '16px'}}><span> نام : </span>علی</p>
-                  </Col>
-                </Row>
-              </div>
-            </div>
-          </div>
-      </Container> */}
+      <ToastContainer/>
     </>
   )
 }

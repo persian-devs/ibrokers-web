@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-
+import { getToken } from '../localstorage/token';
 
 const Header = () =>{
     const [showOffcanvas, setShowOffcanvas] = useState(false);
@@ -14,6 +14,10 @@ const Header = () =>{
 
     const handleCloseOffcanvas = () => {
         setShowOffcanvas(false);
+    }
+
+    const handleRemoveToken = () => {
+        localStorage.removeItem(`${getToken}`);  
     }
     return(
         <>
@@ -30,32 +34,38 @@ const Header = () =>{
 
         <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)} placement="end">
             <Offcanvas.Header closeButton>
-            <Offcanvas.Title className='offcanvas-title'>کارگزاری هوشمند رابین</Offcanvas.Title>
+                <Offcanvas.Title className='offcanvas-title'>کارگزاری هوشمند رابین</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body className='offcanvas-content'>
                 <ul>
                     <li onClick={handleCloseOffcanvas}>
-                        <span>&lsaquo;</span>
                         <Link to='/' className='link-to'>
+                            <span>&lsaquo;</span>
                             <p>صفحه اصلی</p>
                         </Link>
                     </li>
                     <li onClick={handleCloseOffcanvas}>
-                        <span>&lsaquo;</span>
                         <Link to='/userlist' className='link-to'>
+                            <span>&lsaquo;</span>
                             <p>لیست کاربران</p>
                         </Link>
                     </li>
                     <li onClick={handleCloseOffcanvas}>
-                        <span>&lsaquo;</span>
                         <Link to='/categori' className='link-to'>
+                            <span>&lsaquo;</span>
                             <p>دسته بندی ها</p>
                         </Link>
                     </li>
                     <li onClick={handleCloseOffcanvas}>
-                        <span>&lsaquo;</span>
                         <Link to='/support' className='link-to'>
+                            <span>&lsaquo;</span>
                             <p>پشتیبانی</p>
+                        </Link>
+                    </li>
+                    <li onClick={handleCloseOffcanvas}>
+                        <Link to='/' className='link-to' onClick={handleRemoveToken} >
+                            <span>&lsaquo;</span>
+                            <p>خودرو</p>
                         </Link>
                     </li>
                 </ul>

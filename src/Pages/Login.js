@@ -1,16 +1,26 @@
 import '../index.css';
 import logologin from '../assets/img/logo-list.png'
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getToken ,saveToken} from '../localstorage/token';
 import { ToastContainer, toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export function Login () {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [accessToken, setAccessToken] = useState('');
+    const [loginError, setLoginError] = useState([]);
+    const location = useLocation();
     const navigate = useNavigate();
+   
+
+    useEffect(() => {
+      document.cookie.split(";").forEach((c) => {
+        document.cookie = c
+          .replace(/^ +/, "")
+          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+      });
+    }, []);
   
     const handleLogin = async () => {
       try {
@@ -23,16 +33,17 @@ export function Login () {
           console.log(response.data['access']);
           const token = response.data['access']; 
           saveToken(token)
-          // setAccessToken(token);
-          navigate('/')
+          navigate('/home')
           console.log('ورود موفقیت‌آمیز. توکن:', token);
 
         } else {
           console.log('ورود ناموفق. وضعیت:', response.status);
+          setLoginError('نام کاربری یا کلمه عبور اشتباه است');
+
         }
       } catch (error) {
         console.error( error);
-        toast.error('نام کاربری یا کلمه عبور اشتباه است');
+        setLoginError('نام کاربری یا کلمه عبور اشتباه است');
       }
     };
     return(
@@ -42,6 +53,10 @@ export function Login () {
                     <img src={logologin} />
                     
                     <p>ورود به حساب کاربری</p>
+                    <span style={{
+                      color: 'red',
+                      fontFamily: 'sans',
+                    }}>{loginError}</span>
 
                     <label> : نام کاربری</label>
                     <input 
