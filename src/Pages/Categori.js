@@ -50,13 +50,13 @@ export function Categori() {
     });
 
     const [radio, setRadio] = useState([
-        { id: 1, label: 'بازار فیزیکی', checked: false },
-        { id: 2, label: 'بازار مشتقه', checked: false },
+        { id: 1, label: 'عرضه داخلی', checked: false },
+        { id: 2, label: 'عرضه صادراتی', checked: false },
         { id: 3, label: 'بازار فرعی', checked: false },
-        { id: 4, label: 'بازار پریمیوم', checked: false },
-        { id: 5, label: 'بازار نقره ای', checked: false },
-        { id: 6, label: 'بازار خودرو', checked: false },
-        { id: 7, label: 'بازار املاک', checked: false },
+        { id: 4, label: 'عرضه املاک', checked: false },
+        { id: 5, label: 'عرضه مستقلات', checked: false },
+        // { id: 6, label: 'بازار خودرو', checked: false },
+        // { id: 7, label: 'بازار املاک', checked: false },
     ]);
 
     const handleCheckboxChange = (radioId) => {
@@ -323,10 +323,10 @@ export function Categori() {
         try {
             const data = qs.stringify({
                 'name': modalData.name,
-                'main_group': selectedٍEditMainGroupId,
-                'group': selectedEditSubGroupId,
-                'sub_group': selectedEditSuubGroupId,
-                'hall_id': selectedEditCheckboxIds.join(',')
+                'main_group': selectedٍEditMainGroupId || modalData.main_group,
+                'group': selectedEditSubGroupId || modalData.group,
+                'sub_group': selectedEditSuubGroupId || modalData.sub_group,
+                'hall_id': selectedEditCheckboxIds.join(',') || modalData.hall_id
             });
         
             const config = {
@@ -337,8 +337,6 @@ export function Categori() {
                 },
                 data: data
             };
-
-            // console.log(editItem.id);
         
             const response = await axios.request(config);
             console.log(JSON.stringify(response.data));
@@ -356,7 +354,7 @@ export function Categori() {
             setShowEditModal(false);
             setEditItem(null);
         } catch (error) {
-            console.log(error);
+            console.log(error.response);
         }
     
     };
@@ -714,7 +712,7 @@ export function Categori() {
                                                 <span> : نام</span>
                                             </div>
                                             <div className="btn-row-list-res">
-                                                <FontAwesomeIcon icon={faEdit}/>
+                                                <FontAwesomeIcon icon={faEdit} onClick={() => handleEdit(data?.id)}/>
                                                 <FontAwesomeIcon onClick={() => handleDelete(data?.id)} icon={faTrash}/>
                                             </div>
                                         </div>

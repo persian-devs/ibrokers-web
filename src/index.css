@@ -1054,9 +1054,6 @@ select{
   .btn-row-list{
     display: none;
   }
-  .btn-row-list-res{
-    display: block !important;
-  }
   .inset-div-list {
     /* border: 1px solid black; */
     display: grid;
@@ -1244,6 +1241,7 @@ select{
   }
   .row-list{
     padding: 16px;
+    direction: ltr;
   }
   .trash{
     margin: 0 !important;
@@ -1262,6 +1260,7 @@ select{
     font-size: 14px;
     color: #B0B0B0;
     margin-bottom: 8px;
+    direction: ltr;
   }
   .div-input-lable{
     display: none;
@@ -1270,7 +1269,8 @@ select{
     display: none;
   }
   .btn-row-list-res{
-    display: block;
+    display: flex;
+    justify-content: space-between;
   }
   .message-user, .message-admin{
     width: 90%;

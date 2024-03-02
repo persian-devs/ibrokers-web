@@ -27,7 +27,13 @@ export function Home() {
   const [selectedSuubGroupId, setSelectedSuubGroupId] = useState(null);
   const [selectedCheckboxIds, setSelectedCheckboxIds] = useState([]);
   const [editItem, setEditItem] = useState(null);
-  const [modalData, setModalData] = useState([]);
+  const [modalData, setModalData] = useState({
+    name: editItem ? editItem.name : '',
+    main_group: selectedMainGroupId || '', 
+    group: selectedSubGroupId || '', 
+    sub_group: selectedSuubGroupId || '', 
+    hall_id: selectedCheckboxIds.join(','),
+  });
 
   const handleDelete = (productId) => {
     setItemToDelete(productId);
@@ -40,13 +46,13 @@ export function Home() {
   };
 
   const [radio, setRadio] = useState([
-    { id: 1, label: 'بازار فیزیکی', checked: false },
-    { id: 2, label: 'بازار مشتقه', checked: false },
-    { id: 3, label: 'بازار فرعی', checked: false },
-    { id: 4, label: 'بازار پریمیوم', checked: false },
-    { id: 5, label: 'بازار نقره ای', checked: false },
-    { id: 6, label: 'بازار خودرو', checked: false },
-    { id: 7, label: 'بازار املاک', checked: false },
+      { id: 1, label: 'عرضه داخلی', checked: false },
+      { id: 2, label: 'عرضه صادراتی', checked: false },
+      { id: 3, label: 'بازار فرعی', checked: false },
+      { id: 4, label: 'عرضه املاک', checked: false },
+      { id: 5, label: 'عرضه مستقلات', checked: false },
+      // { id: 6, label: 'بازار خودرو', checked: false },
+      // { id: 7, label: 'بازار املاک', checked: false },
   ]);
   
   const handleCheckboxChange = (RadioId) => {
@@ -167,10 +173,10 @@ export function Home() {
     try {
       const data = qs.stringify({
         'name': modalData?.name,
-        'main_group': selectedMainGroupId,
-        'group': selectedSubGroupId,
-        'sub_group': selectedSuubGroupId,
-        'hall_id': selectedCheckboxIds.join(',')
+        'main_group': selectedMainGroupId || modalData.main_group,
+        'group': selectedSubGroupId || modalData.group,
+        'sub_group': selectedSuubGroupId || modalData.sub_group,
+        'hall_id': selectedCheckboxIds.join(',') || modalData.hall_id
       });
       console.log(data);
 
@@ -249,10 +255,11 @@ export function Home() {
                             <input
                               className="form-check-input"
                               type="radio"
+                              value=""
                               id={`radio-${radio.id}`}
                               // defaultChecked={modalData?.hall_id}
                               name="checkbox-group"
-                              checked={radio.id === modalData?.hall_id}
+                              defaultChecked={radio.id === modalData?.hall_id}
                               style={{
                                 backgroundColor: '#FFD600',
                                 border: 'none'
@@ -272,7 +279,7 @@ export function Home() {
                     </div>
                     <div className="div-input-select">
                       <input className="input-name"
-                        value={modalData?.name || ''}
+                        value={modalData?.name || modalData?.name}
                         onChange={(e) => setModalData({ ...modalData, name: e.target.value })}
                         />
                     </div>
@@ -291,7 +298,7 @@ export function Home() {
                           fontSize: '14px'
                         }}
                         onChange={handleMainGroupChange}
-                        defaultValue={modalData?.main_group || ''}
+                        defaultValue={modalData?.main_group || modalData?.main_group}
                       >
                         <option selected>انتخاب کنید</option>
                         {mainGroup.map((group) => (
@@ -314,7 +321,7 @@ export function Home() {
                           fontSize: '14px'
                         }}
                         onChange={handleSubGroupChange}
-                        defaultValue={modalData?.group || ''}
+                        defaultValue={modalData?.group || modalData?.group}
                         >
                         <option selected>{groups.find(item => item.id === modalData.group)?.persianName}</option>
                         {Groups
@@ -446,10 +453,10 @@ export function Home() {
               </div>
               <button className="add-user-to-group" onClick={() => handleGoToAddUser(data?.id)}>افزودن کاربر</button>
             </div>
-         ))
-         ) : (
+          ))
+        ) : (
           <p className="isloading">در حال بارگذاری...</p>
-         )}
+        )}
       </div>
       <ToastContainer/>
     </>

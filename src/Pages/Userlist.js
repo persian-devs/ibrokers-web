@@ -9,7 +9,6 @@ import { faEdit, faTrain } from "@fortawesome/free-solid-svg-icons";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 export function Userlist() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [lastName, setLastName] = useState('');
@@ -23,28 +22,35 @@ export function Userlist() {
   const [editedUser, setEditedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-
   const handleSubmit = async () => {
     try {
-      const data = qs.stringify({
-        name: lastName,
-        family: firstName,
-        phone: phoneNumber,
-      });
+      const phoneExists = getUserData.some(user => user.phone === phoneNumber);
 
-      const config = {
-        method: 'post',
-        url: 'https://panel.ibrokers.ir/api/panel/users/',
-        headers: { 
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: data
-      };
+      if (phoneExists) {
+        toast.error('شماره تلفن وارد شده قبلاً ثبت شده است');
+      } else {
+        const data = qs.stringify({
+          name: lastName,
+          family: firstName,
+          phone: phoneNumber,
+        });
 
-      const response = await axios.request(config);
-      setGetUserData(prevData => [...prevData, response.data]);
-      toast.success('کاربر با موفقیت اضافه شد')
-      console.log(response.data);
+        const config = {
+          method: 'post',
+          url: 'https://panel.ibrokers.ir/api/panel/users/',
+          headers: { 
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: data
+        };
+
+        const response = await axios.request(config);
+        setGetUserData(prevData => [...prevData, response.data]);
+        toast.success('کاربر با موفقیت اضافه شد')
+        setFirstName('')
+        setLastName('')
+        setPhoneNumber('')
+      }
     } catch (error) {
       console.error(error);
     }
@@ -71,7 +77,7 @@ export function Userlist() {
       axios.delete(`https://panel.ibrokers.ir/api/panel/users/${userToDelete}/`)
         .then((response) => {
           setGetUserData(prevData => prevData.filter(user => user.id !== userToDelete));
-          console.log(JSON.stringify(response.data));
+          // console.log(JSON.stringify(response.data));
           setUserToDelete(null);
           setShowDeleteModal(false);
           toast.success('کاربر با موفقیت حذف شد')

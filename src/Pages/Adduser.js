@@ -15,6 +15,7 @@ function AddUser() {
   const [selectedUserId, setSelectedUserId] = useState('');
   const [selectedItemData, setSelectedItemData] = useState(null);
   const {id} = useParams();
+  console.log(getUserData);
 
   const handleTrashClick = (itemId) => {
     const selectedItem = getDataRoom.find(item => item.id === itemId);
@@ -117,8 +118,19 @@ function AddUser() {
 
   const userOptions = getUserData.map(user => ({
     id: user.id,
-    label: user.phone,
+    label: `${user.phone} - ${user.name}`,
+    name: user.name
   }));
+  // console.log(userOptions);
+  const filterOptions = (options, { inputValue }) => {
+    const inputText = inputValue.trim().toLowerCase();
+  
+    return options.filter(option => 
+      option.label.toLowerCase().includes(inputText) ||
+      option.name.toLowerCase().includes(inputText) ||
+      option.id.toString().includes(inputText)  // Check for ID as well
+    );
+  };
 
 
   return (
@@ -154,10 +166,12 @@ function AddUser() {
                   options={userOptions}
                   autoHighlight
                   getOptionLabel={(option) => option.label}
+                  filterOptions={filterOptions}
                   onChange={handleUserSelectChange}
                   renderOption={(props, option) => (
                     <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                       {option.label}
+
                     </Box>
                   )}
                   renderInput={(params) => (
