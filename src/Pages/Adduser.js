@@ -6,8 +6,10 @@ import trash from "../assets/img/trash.png";
 import axios from 'axios';
 import { getToken } from '../localstorage/token';
 import qs from 'qs';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Autocomplete, Box, TextField } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faArrowCircleLeft, faArrowLeft, faLeftLong } from '@fortawesome/free-solid-svg-icons';
 
 function AddUser() {
   const [getUserData , setGetUserData] = useState ([]);
@@ -15,7 +17,7 @@ function AddUser() {
   const [selectedUserId, setSelectedUserId] = useState('');
   const [selectedItemData, setSelectedItemData] = useState(null);
   const {id} = useParams();
-  console.log(getUserData);
+  // console.log(getUserData);
 
   const handleTrashClick = (itemId) => {
     const selectedItem = getDataRoom.find(item => item.id === itemId);
@@ -92,6 +94,10 @@ function AddUser() {
         console.log(error);
     });
   };
+  const navigate = useNavigate();
+  const handleBackHome = () => {
+    navigate('/home')
+  }
 
   const handleDelete = () => {
     if (selectedItemData) {
@@ -119,16 +125,15 @@ function AddUser() {
   const userOptions = getUserData.map(user => ({
     id: user.id,
     label: `${user.phone} - ${user.name}`,
-    name: user.name
   }));
-  // console.log(userOptions);
+
   const filterOptions = (options, { inputValue }) => {
     const inputText = inputValue.trim().toLowerCase();
   
     return options.filter(option => 
       option.label.toLowerCase().includes(inputText) ||
       option.name.toLowerCase().includes(inputText) ||
-      option.id.toString().includes(inputText)  // Check for ID as well
+      option.id.toString().includes(inputText) 
     );
   };
 
@@ -154,7 +159,10 @@ function AddUser() {
       <div className='box-add-user'>
         <form>
           <div className="box-user-list-home">
-            <div>
+            <div className='btns-box-user'>
+              <div className="btn-plus btn-arrow-left" onClick={handleBackHome}>
+                <FontAwesomeIcon icon={faAngleLeft} />
+              </div>
               <div typeof="submit" className="btn-plus" onClick={handleFormSubmit}>
                 اضافه کردن
               </div>

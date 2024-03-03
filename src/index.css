@@ -973,6 +973,18 @@ select{
   justify-content: space-between;
   align-items: center;
 }
+.btns-box-user{
+  display: flex;
+  grid-gap: 8px;
+}
+.btn-arrow-left{
+  width: max-content !important;
+  padding: 0 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
 
 .css-1jy569b-MuiFormLabel-root-MuiInputLabel-root{
   font-family: sans !important;
