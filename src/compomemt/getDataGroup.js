@@ -12,8 +12,8 @@ export const ApiDataProvider = ({ children }) => {
     { id: 1, label: 'عرضه داخلی', checked: false },
     { id: 2, label: 'عرضه صادراتی', checked: false },
     { id: 3, label: 'بازار فرعی', checked: false },
-    { id: 4, label: 'عرضه املاک', checked: false },
-    { id: 5, label: 'عرضه مستقلات', checked: false },
+    { id: 4, label: 'عرضه املاک و مستقلات', checked: false },
+    // { id: 5, label: 'عرضه مستقلات', checked: false },
     // { id: 6, label: 'بازار خودرو', checked: false },
     // { id: 7, label: 'بازار املاک', checked: false },
   ]);

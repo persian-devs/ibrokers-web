@@ -973,6 +973,9 @@ select{
   justify-content: space-between;
   align-items: center;
 }
+#country-select-demo{
+  width: 200px;
+}
 .btns-box-user{
   display: flex;
   grid-gap: 8px;
@@ -1238,6 +1241,13 @@ select{
   }
   .box-user-list-home {
     direction: ltr;
+    display: block;
+  }
+  .row-list-adduser{
+    direction: rtl !important;
+  }
+  .search-user-adduser{
+    margin-top: 16px;
   }
   .p-res{
     margin: 0 0 8px !important;

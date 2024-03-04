@@ -6,10 +6,12 @@ import trash from "../assets/img/trash.png";
 import axios from 'axios';
 import { getToken } from '../localstorage/token';
 import qs from 'qs';
+import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Autocomplete, Box, TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faArrowCircleLeft, faArrowLeft, faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { ToastContainer, toast } from 'react-toastify';
 
 function AddUser() {
   const [getUserData , setGetUserData] = useState ([]);
@@ -17,7 +19,7 @@ function AddUser() {
   const [selectedUserId, setSelectedUserId] = useState('');
   const [selectedItemData, setSelectedItemData] = useState(null);
   const {id} = useParams();
-  // console.log(getUserData);
+  const navigate = useNavigate();
 
   const handleTrashClick = (itemId) => {
     const selectedItem = getDataRoom.find(item => item.id === itemId);
@@ -32,6 +34,7 @@ function AddUser() {
     const selectedId = value ? value.id : null;
     setSelectedUserId(selectedId);
     console.log(selectedId);
+    
   };
 
   useEffect(() => {
@@ -67,9 +70,24 @@ function AddUser() {
     });
   }, [])
 
+
+  const [submittedUsers, setSubmittedUsers] = useState([]);
+
   const handleFormSubmit = (event) => {
+    if(getToken() === null){
+      navigate('/');
+    }
+
     const dataRoomm = id;
     event.preventDefault();
+
+
+    if (submittedUsers.includes(selectedUserId)) {
+      toast.error('این کاربر از قبل وجود دارد');
+      return;
+    }
+
+
     let data = qs.stringify({
       'user': selectedUserId,
       'room': dataRoomm 
@@ -87,14 +105,15 @@ function AddUser() {
 
     axios.request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-        setGetDataRoom(prevData => [...prevData, response.data]);
-      })
-      .catch((error) => {
-        console.log(error);
-    });
+          console.log(JSON.stringify(response.data));
+          setGetDataRoom(prevData => [...prevData, response.data]);
+          setSubmittedUsers((prevUsers) => [...prevUsers, selectedUserId]);
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   };
-  const navigate = useNavigate();
   const handleBackHome = () => {
     navigate('/home')
   }
@@ -132,7 +151,7 @@ function AddUser() {
   
     return options.filter(option => 
       option.label.toLowerCase().includes(inputText) ||
-      option.name.toLowerCase().includes(inputText) ||
+      option.label.toLowerCase().includes(inputText) ||
       option.id.toString().includes(inputText) 
     );
   };
@@ -167,10 +186,9 @@ function AddUser() {
                 اضافه کردن
               </div>
             </div>
-            <div>
+            <div className='search-user-adduser'>
                <Autocomplete
                   id="country-select-demo"
-                  sx={{ width: 300 }}
                   options={userOptions}
                   autoHighlight
                   getOptionLabel={(option) => option.label}
@@ -201,7 +219,7 @@ function AddUser() {
       <div className="container-list">
         {Array.isArray(getDataRoom) && getDataRoom.map(item => (
           <div className="div-list" key={item.id}>
-              <div className="row-list">
+              <div className="row-list row-list-adduser">
                 <div className="inset-div-list-input">
                   <img className="trash" src={trash} onClick={() => handleTrashClick(item.id)}></img>
                 </div>
@@ -225,7 +243,7 @@ function AddUser() {
           </div>
         ))}
       </div>
-      
+      <ToastContainer/>
     </>
   )
 }
