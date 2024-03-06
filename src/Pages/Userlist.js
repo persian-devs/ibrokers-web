@@ -27,7 +27,7 @@ export function Userlist() {
       const phoneExists = getUserData.some(user => user.phone === phoneNumber);
 
       if (phoneExists) {
-        toast.error('شماره تلفن وارد شده قبلاً ثبت شده است');
+        toast.error('کاربر قبلا ثبت شده');
       } else {
         const data = qs.stringify({
           name: lastName,

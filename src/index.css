@@ -557,7 +557,7 @@ select{
   display: flex;
   justify-content: end;
   grid-gap: 16px;
-  margin: 16px 0;
+  margin: 16px 0 24px;
   flex-wrap: wrap;
 }
 .input-check-box-selected{

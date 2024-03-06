@@ -1,6 +1,4 @@
 import axios from "axios";
-import alert from "../assets/img/Vector.png";
-import logoheader from "../assets/img/logo-header.png";
 import Header from "../compomemt/header";
 import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
@@ -147,7 +145,7 @@ export function Home() {
         
       axios.request(config)
       .then((response) => {
-          console.log(JSON.stringify(response.data));
+          // console.log(JSON.stringify(response.data));
           setGetDataUser((prevData) => prevData.filter(item => item.id !== itemToDelete));
 
       })
@@ -178,7 +176,7 @@ export function Home() {
         'sub_group': selectedSuubGroupId || modalData.sub_group,
         'hall_id': selectedCheckboxIds.join(',') || modalData.hall_id
       });
-      console.log(data);
+      // console.log(data);
 
       const config = {
         method: 'put',
@@ -191,7 +189,7 @@ export function Home() {
 
 
       const response = await axios.request(config);
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
       setGetDataUser((prevData) => {
         const updatedData = prevData.map((item) =>
           item.id === modalData.id ? response.data : item
@@ -237,7 +235,7 @@ export function Home() {
                     </label>
                     <div className="box-checked">
                       {radio.map((radio) => (
-                         <div
+                        <div
                             className="div-check-box-selected selected-home"
                             key={radio.id}
                             onChange={() => handleCheckboxChange(radio.id)}
@@ -265,7 +263,7 @@ export function Home() {
                                 border: 'none'
                               }}
                             />
-                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -360,7 +358,6 @@ export function Home() {
                       <label> زیر دسته بندی</label>
                     </div>
                   </div>
-                 
                 </div>
               </div>
             </form>
@@ -379,7 +376,7 @@ export function Home() {
 
       <Modal show={showDeleteModal} onHide={handleDeleteCancel} centered>
         <Modal.Body className="body-modal">
-          کاربر حذف شود؟
+          گروه حذف شود؟
         </Modal.Body>
         <Modal.Footer className="footer-modal">
           <Button variant="dark" onClick={handleDeleteCancel}>
@@ -455,7 +452,7 @@ export function Home() {
             </div>
           ))
         ) : (
-          <p className="isloading">در حال بارگذاری...</p>
+          <p className="not-group">در حال بارگذاری...</p>
         )}
       </div>
       <ToastContainer/>

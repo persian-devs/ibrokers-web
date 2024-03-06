@@ -4,7 +4,7 @@ import iconright from "../assets/img/right-icon.png";
 import logoheader from "../assets/img/logo-header.png";
 import Header from "../compomemt/header";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import jalaliMoment from "jalali-moment";
 import qs from 'qs';
 import { getToken, saveToken } from "../localstorage/token";
@@ -15,6 +15,8 @@ export function Support() {
     const [message, setMessage] = useState('');
     const [dataAdmin, setDataAdmin] = useState([])
     const [dataUser, setDataUser] = useState([])
+    const chatContainerRef = useRef();
+
 
     const convertToPersianDate = (gregorianDate) => {
         const jalaliDate = jalaliMoment(gregorianDate, 'YYYY-M-D HH:mm:ss').format('jYYYY-jM-jD HH:mm:ss');
@@ -70,7 +72,7 @@ export function Support() {
                 }
             });
 
-            console.log(response.data.content);
+            // console.log(response.data.content);
             setMessage(response.data.content);
             fetchData();
             setMessage('');
@@ -79,12 +81,16 @@ export function Support() {
         }
     };
 
+    useEffect(() => {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }, [adminchat, userchat]);
+
     return (
         <>
             <div className="box-m">
             <Header/>
 
-                <div className="box-messagee">
+                <div ref={chatContainerRef} className="box-messagee">
                     {adminchat.map((chat, index) => (
                         <div className="box-message-user" key={chat.id}>
                             <div className="user">

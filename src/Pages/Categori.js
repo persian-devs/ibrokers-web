@@ -40,7 +40,6 @@ export function Categori() {
     const [showEditModal, setShowEditModal] = useState(false);
     const [getDataUser, setGetDataUser] = useState([]);
     const [hasSetDataGroup, setHasSetDataGroup] = useState(false);
-    const [getdataGroupModal , setGetdataGroupModal] = useState([]);
     const [modalData, setModalData] = useState({
         name: editItem ? editItem.name : '',
         main_group: selectedٍEditMainGroupId || '', 
@@ -138,6 +137,11 @@ export function Categori() {
     };
     
     const handleMainGroupChange = (e) => {
+        if(selectedCheckboxIds.length === 0){
+            toast.error('لطفا دسته بندی را انتخاب کنید');
+            return;
+        }
+
         const selectedId = parseInt(e.target.value, 10);
         setSelectedMainGroupId(selectedId);
 
@@ -253,7 +257,7 @@ export function Categori() {
               
             axios.request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
+                // console.log(JSON.stringify(response.data));
                 setDataGroup((prevData) => prevData.filter(item => item.id !== itemToDelete));
                 toast.success('گروه با موفقیت حذف شد')
             })

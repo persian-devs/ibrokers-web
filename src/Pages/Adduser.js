@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, useParams } from 'react-router-dom';
 import { Autocomplete, Box, TextField } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faArrowCircleLeft, faArrowLeft, faLeftLong } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { ToastContainer, toast } from 'react-toastify';
 
 function AddUser() {
@@ -32,9 +32,7 @@ function AddUser() {
 
   const handleUserSelectChange = (event, value) => {
     const selectedId = value ? value.id : null;
-    setSelectedUserId(selectedId);
-    console.log(selectedId);
-    
+    setSelectedUserId(selectedId);    
   };
 
   useEffect(() => {
@@ -81,12 +79,10 @@ function AddUser() {
     const dataRoomm = id;
     event.preventDefault();
 
-
     if (submittedUsers.includes(selectedUserId)) {
       toast.error('این کاربر از قبل وجود دارد');
       return;
     }
-
 
     let data = qs.stringify({
       'user': selectedUserId,
@@ -105,7 +101,7 @@ function AddUser() {
 
     axios.request(config)
       .then((response) => {
-          console.log(JSON.stringify(response.data));
+          // console.log(JSON.stringify(response.data));
           setGetDataRoom(prevData => [...prevData, response.data]);
           setSubmittedUsers((prevUsers) => [...prevUsers, selectedUserId]);
 
@@ -131,7 +127,7 @@ function AddUser() {
   
       axios.request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         setGetDataRoom(prevData => prevData.filter(item => item.id !== userId));
       })
       .catch((error) => {
@@ -151,7 +147,7 @@ function AddUser() {
   
     return options.filter(option => 
       option.label.toLowerCase().includes(inputText) ||
-      option.label.toLowerCase().includes(inputText) ||
+      // option.label.toLowerCase().includes(inputText) ||
       option.id.toString().includes(inputText) 
     );
   };
