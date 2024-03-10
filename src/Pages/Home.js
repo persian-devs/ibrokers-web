@@ -47,8 +47,8 @@ export function Home() {
       { id: 1, label: 'عرضه داخلی', checked: false },
       { id: 2, label: 'عرضه صادراتی', checked: false },
       { id: 3, label: 'بازار فرعی', checked: false },
-      { id: 4, label: 'عرضه املاک', checked: false },
-      { id: 5, label: 'عرضه مستقلات', checked: false },
+      { id: 4, label: 'عرضه املاک و مستقلات', checked: false },
+      // { id: 5, label: 'عرضه مستقلات', checked: false },
       // { id: 6, label: 'بازار خودرو', checked: false },
       // { id: 7, label: 'بازار املاک', checked: false },
   ]);
@@ -231,7 +231,7 @@ export function Home() {
                       fontSize: '14px'
                     }}
                       class="form-check-label"
-                      for="flexCheckDefault"> انتخاب دسته بندی
+                      for="flexCheckDefault"> بازار ها
                     </label>
                     <div className="box-checked">
                       {radio.map((radio) => (
@@ -287,7 +287,7 @@ export function Home() {
                   </div>
                   <div className="selected-home">
                     <div className="div-input-lable-res-home">
-                      <label>دسته بندی اصلی</label>
+                      <label>همه گروه های اصلی</label>
                     </div>
                     <div className="div-input-select">
                       <select class="form-select"
@@ -305,12 +305,12 @@ export function Home() {
                       </select>
                     </div>
                     <div className="div-input-lable-home">
-                      <label> دسته بندی اصلی</label>
+                      <label>همه گروه های اصلی</label>
                     </div>
                   </div>
                   <div className="selected-home">
                     <div className="div-input-lable-res-home">
-                      <label> دسته بندی</label>
+                      <label> همه گروه ها</label>
                     </div>
                     <div className="div-input-select">
                       <select class="form-select"
@@ -330,12 +330,12 @@ export function Home() {
                       </select>
                     </div>
                     <div className="div-input-lable-home">
-                      <label> دسته بندی</label>
+                      <label> همه گروه ها</label>
                     </div>
                   </div>
                   <div className="selected-home">
                     <div className="div-input-lable-res-home">
-                      <label> زیر دسته بندی</label>
+                      <label> همه زیر گروه ها</label>
                     </div>
 
                     <div className="div-input-select-home">
@@ -355,7 +355,7 @@ export function Home() {
                       </select>
                     </div>
                     <div className="div-input-lable-home">
-                      <label> زیر دسته بندی</label>
+                      <label> همه زیر گروه ها</label>
                     </div>
                   </div>
                 </div>

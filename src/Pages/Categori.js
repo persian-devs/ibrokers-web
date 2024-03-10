@@ -387,7 +387,7 @@ export function Categori() {
                                         fontSize: '14px'
                                         }}
                                         class="form-check-label"
-                                        for="flexCheckDefault"> انتخاب دسته بندی
+                                        for="flexCheckDefault"> بازار ها
                                     </label>
                                     <div className="box-checked">
                                         {radio.map((item) => (
