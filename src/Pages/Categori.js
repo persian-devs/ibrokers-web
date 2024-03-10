@@ -94,6 +94,7 @@ export function Categori() {
     }, []);
 
     const sendDataToServer = async () => {
+       
         if (groupName === '' || selectedMainGroupId === '' || selectedSuubGroupId === '' || selectedSubGroupId === '' || selectedCheckboxIds.length === 0){
             toast.error('تمام قسمت هارا کامل کنید');
             return;
@@ -128,6 +129,7 @@ export function Categori() {
             setSelectedCheckboxIds([]);
     
             setDataGroup((prevData) => [...prevData, response.data]);
+            window.location.reload();
     
             toast.success('گروه با موفقیت اضافه شد');
         } catch (error) {
@@ -438,7 +440,7 @@ export function Categori() {
                                 </div>
                                 <div className="selected-home">
                                     <div className="div-input-lable-res-home">
-                                        <label>دسته بندی اصلی</label>
+                                        <label>همه گروه های اصلی</label>
                                     </div>
                                     <div className="div-input-select">
                                         <select class="form-select"
@@ -455,12 +457,12 @@ export function Categori() {
                                         </select>
                                     </div>
                                     <div className="div-input-lable-home">
-                                        <label> دسته بندی اصلی</label>
+                                        <label> همه گروه های اصلی</label>
                                     </div>
                                 </div>
                                 <div className="selected-home">
                                     <div className="div-input-lable-res-home">
-                                        <label> دسته بندی</label>
+                                        <label> همه گروه ها</label>
                                     </div>
                                     <div className="div-input-select">
                                         <select class="form-select"
@@ -480,12 +482,12 @@ export function Categori() {
                                         </select>
                                     </div>
                                     <div className="div-input-lable-home">
-                                        <label> دسته بندی</label>
+                                        <label> همه گروه ها</label>
                                     </div>
                                 </div>
                                 <div className="selected-home">
                                     <div className="div-input-lable-res-home">
-                                        <label> زیر دسته بندی</label>
+                                        <label> همه زیر گروه ها</label>
                                     </div>
                                     <div className="div-input-select-home">
                                         <select class="form-select"
@@ -503,7 +505,7 @@ export function Categori() {
                                         </select>
                                     </div>
                                     <div className="div-input-lable-home">
-                                        <label> زیر دسته بندی</label>
+                                        <label> همه زیر گروه ها</label>
                                     </div>
                                 </div>
                             </div>
@@ -579,7 +581,7 @@ export function Categori() {
 
                         <div className="box-check-box-selected">
                             <div className="div-title-categori">
-                                <p className="title-categorii">دسته بندی</p>
+                                <p className="title-categorii">بازار ها</p>
                             </div>
                             <div className="check-box-selected-category">
                                 {radio.map((radio) => (
@@ -613,7 +615,7 @@ export function Categori() {
                         <div className="box-selected">
                             <div className="selected">
                                 <div className="div-input-lable-res">
-                                    <label> : زیر دسته بندی</label>
+                                    <label> : همه زیر گروه ها</label>
                                 </div>
                                 <div className="div-input-select">
                                     <select class="form-select" 
@@ -631,12 +633,12 @@ export function Categori() {
                                     </select>
                                 </div>
                                 <div className="div-input-lable">
-                                    <label> : زیر دسته بندی</label>
+                                    <label> : همه زیر گروه ها</label>
                                 </div>
                             </div>
                             <div className="selected">
                                 <div className="div-input-lable-res">
-                                    <label> : دسته بندی</label>
+                                    <label> : همه گروه ها</label>
                                 </div>
                                 <div className="div-input-select">
                                     <select class="form-select" 
@@ -653,12 +655,12 @@ export function Categori() {
                                     </select>
                                 </div>
                                 <div className="div-input-lable">
-                                    <label> : دسته بندی</label>
+                                    <label> : همه گروه ها</label>
                                 </div>
                             </div>
                             <div className="selected">
                                 <div className="div-input-lable-res">
-                                    <label> : دسته بندی اصلی</label>
+                                    <label> : همه گروه های اصلی</label>
                                 </div>
                                     <div className="div-input-select">
                                         <select class="form-select"  
@@ -673,7 +675,7 @@ export function Categori() {
                                         </select>
                                     </div>
                                 <div className="div-input-lable">
-                                    <label> : دسته بندی اصلی</label>
+                                    <label> : همه گروه های اصلی</label>
                                 </div>
                             </div>
                         </div>

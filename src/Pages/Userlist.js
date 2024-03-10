@@ -126,6 +126,8 @@ export function Userlist() {
     user.phone.includes(searchTerm) 
   );
 
+
+
   return (
     <>
       <Modal show={showEditModal} onHide={handleEditCancel} centered>
@@ -216,7 +218,13 @@ export function Userlist() {
                     className="input" 
                     type="text"
                     value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    onChange={(e) => {
+                      const inputValue = e.target.value;
+                      const sanitizedPhoneNumber = inputValue.replace(/\D/g, '');
+                      const limitedPhoneNumber = `09${sanitizedPhoneNumber.slice(2, 11)}`;
+                      
+                      setPhoneNumber(limitedPhoneNumber);
+                    }}
                     ></input>
                   <p className="p"> : شماره تماس</p>
                 </div>

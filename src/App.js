@@ -26,7 +26,7 @@ function App() {
   const handleClick = (index) => {
     if (index === 4) {
       setShowModalExit(true);
-      // clearToken(); 
+      setActiveIndex(index);
     } else {
       setActiveIndex(index);
     }
@@ -81,7 +81,9 @@ function App() {
               <Link to="/support" className="link-nav-list">
                 <li className={activeIndex === 3 ? 'active' : ''} onClick={() => handleClick(3)}><span className="icon-left">&lsaquo;</span>پشتیبانی</li>
               </Link>
-              <li className={activeIndex === 4 ? 'active' : ''} onClick={() => handleClick(4)}><span className="icon-left">&lsaquo;</span>خروج</li>
+              <Link to="" className="link-nav-list">
+                <li className={activeIndex === 4 ? 'active' : ''} onClick={() => handleClick(4)}><span className="icon-left">&lsaquo;</span>خروج</li>
+              </Link>
             </ul>
           </nav>
           
