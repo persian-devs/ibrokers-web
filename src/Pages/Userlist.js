@@ -217,11 +217,11 @@ export function Userlist() {
                   <input 
                     className="input" 
                     type="text"
-                    value={phoneNumber}
+                    value={`09${phoneNumber}`}
                     onChange={(e) => {
                       const inputValue = e.target.value;
                       const sanitizedPhoneNumber = inputValue.replace(/\D/g, '');
-                      const limitedPhoneNumber = `09${sanitizedPhoneNumber.slice(2, 11)}`;
+                      const limitedPhoneNumber = sanitizedPhoneNumber.slice(2, 11);
                       
                       setPhoneNumber(limitedPhoneNumber);
                     }}

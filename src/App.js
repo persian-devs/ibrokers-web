@@ -39,6 +39,7 @@ function App() {
 
   const handleCancelExit = () => {
     setShowModalExit(false)
+    window.location.pathname = '/home';
   }
 
     return( 
@@ -81,7 +82,7 @@ function App() {
               <Link to="/support" className="link-nav-list">
                 <li className={activeIndex === 3 ? 'active' : ''} onClick={() => handleClick(3)}><span className="icon-left">&lsaquo;</span>پشتیبانی</li>
               </Link>
-              <Link to="" className="link-nav-list">
+              <Link className="link-nav-list">
                 <li className={activeIndex === 4 ? 'active' : ''} onClick={() => handleClick(4)}><span className="icon-left">&lsaquo;</span>خروج</li>
               </Link>
             </ul>

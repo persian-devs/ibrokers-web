@@ -120,7 +120,7 @@ export function Categori() {
     
         try {
             const response = await axios.request(config);
-            // console.log(JSON.stringify(response.data));
+            console.log(JSON.stringify(response.data));
     
             setGroupName('');
             setSelectedMainGroupId(null);
@@ -130,7 +130,7 @@ export function Categori() {
     
             setDataGroup((prevData) => [...prevData, response.data]);
             window.location.reload();
-    
+
             toast.success('گروه با موفقیت اضافه شد');
         } catch (error) {
             console.log(error);
@@ -599,7 +599,7 @@ export function Categori() {
                                         <input 
                                             class="form-check-input" 
                                             type="radio" 
-                                            value="" 
+                                            // value="" 
                                             id={`radio-${radio.id}`}
                                             name="checkbox-group"
                                             checked={radio.checked}
