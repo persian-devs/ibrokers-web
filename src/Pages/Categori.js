@@ -92,20 +92,35 @@ export function Categori() {
                 console.log(error);
             });
     }, []);
+    const resetForm = () => {
+        setGroupName('');
+        setSelectedMainGroupId(null);
+        setSelectedSubGroupId(null);
+        setSelectedSuubGroupId(null);
+        const updatedRadio = radio.map((item) => ({ ...item, checked: false }));
+        setRadio(updatedRadio);
+    };
 
     const sendDataToServer = async () => {
        
-        if (groupName === '' || selectedMainGroupId === '' || selectedSuubGroupId === '' || selectedSubGroupId === '' || selectedCheckboxIds.length === 0){
+        if (
+            groupName === '' ||
+            selectedMainGroupId === '' ||
+            selectedSuubGroupId === '' ||
+            selectedSubGroupId === '' ||
+            selectedCheckboxIds.length === 0
+        ) {
             toast.error('تمام قسمت هارا کامل کنید');
             return;
         }
+    
     
         let data = qs.stringify({
             'name': groupName, 
             'main_group': selectedMainGroupId,
             'group': selectedSubGroupId,
             'sub_group': selectedSuubGroupId,
-            'hall_id': selectedCheckboxIds.join(',') 
+            'hall_id': selectedCheckboxIds.join(',')
         });
         
         let config = {
@@ -121,26 +136,23 @@ export function Categori() {
         try {
             const response = await axios.request(config);
             console.log(JSON.stringify(response.data));
-    
-            setGroupName('');
-            setSelectedMainGroupId(null);
-            setSelectedSubGroupId(null);
-            setSelectedSuubGroupId(null);
-            setSelectedCheckboxIds([]);
-    
             setDataGroup((prevData) => [...prevData, response.data]);
-            window.location.reload();
-
+    
+            resetForm();
+                
             toast.success('گروه با موفقیت اضافه شد');
         } catch (error) {
             console.log(error);
-            toast.error('خطا در ارسال داده');
+            toast.error('گروه ها مشخص شوند');
         }
     };
+    useEffect(() => {
+        resetForm();
+    }, [setDataGroup]);
     
     const handleMainGroupChange = (e) => {
         if(selectedCheckboxIds.length === 0){
-            toast.error('لطفا دسته بندی را انتخاب کنید');
+            toast.error('لطفا بازار مورد نظر را انتخاب کنید');
             return;
         }
 
@@ -591,24 +603,24 @@ export function Categori() {
                                                 fontFamily: 'sans',
                                                 fontSize: '14px'
                                             }} 
-                                            class="form-check-label" 
-                                            for="flexCheckDefault"
-                                            htmlFor={`checkbox-${radio.id}`}>
+                                            className="form-check-label" 
+                                            htmlFor={`radio-${radio.id}`}> 
                                             {radio.label}
                                         </label>
                                         <input 
-                                            class="form-check-input" 
+                                            className="form-check-input" 
                                             type="radio" 
-                                            // value="" 
                                             id={`radio-${radio.id}`}
-                                            name="checkbox-group"
+                                            name="radio-group"
                                             checked={radio.checked}
                                             onChange={() => handleCheckboxChange(radio.id)}
-                                            style={{backgroundColor: '#FFD600',
-                                            border: 'none'}}
-                                            />
+                                            style={{
+                                                backgroundColor: '#FFD600',
+                                                border: 'none'
+                                            }}
+                                        />
                                     </div>
-                                ))} 
+                                ))}
                             </div>
                         </div>
 
