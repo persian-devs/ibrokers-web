@@ -92,6 +92,8 @@ export function Categori() {
                 console.log(error);
             });
     }, []);
+
+
     const resetForm = () => {
         setGroupName('');
         setSelectedMainGroupId(null);
@@ -156,7 +158,7 @@ export function Categori() {
             return;
         }
 
-        const selectedId = parseInt(e.target.value, 10);
+        var selectedId = parseInt(e.target.value, 10);
         setSelectedMainGroupId(selectedId);
 
         axios.get(`https://api.ibrokers.ir/bourse/group/group/`)
@@ -168,12 +170,14 @@ export function Categori() {
             .catch((error) => {
                 console.log(error);
             });
+
+           
     };
 
     // edit
     const handleEditMainGroupChange = (e) => {
         e.persist();
-        const selectedId = parseInt(e.target.value, 10);
+        var selectedId = parseInt(e.target.value, 10);
         setSelectedEditMainGroupId(selectedId);
 
         axios.get(`https://api.ibrokers.ir/bourse/group/group/`)
@@ -185,6 +189,7 @@ export function Categori() {
             .catch((error) => {
                 console.log(error);
             });
+
     };
     // edit
 
@@ -377,6 +382,9 @@ export function Categori() {
     
     };
 
+
+    const isCategorySelected = !!selectedٍEditMainGroupId;
+
     
     return (
         <>
@@ -464,7 +472,7 @@ export function Categori() {
                                             defaultValue={modalData.main_group}>
                                             <option selected>انتخاب کنید</option>
                                             {editmainGroup.map((group) => (
-                                                <option key={group.id} value={group.id}>{group.persianName}</option>
+                                                <option key={group.id} value={group.id}>{group?.persianName}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -483,13 +491,12 @@ export function Categori() {
                                                 fontSize: '14px'
                                             }}
                                             onChange={handleEditSubGroupChange}
-                                            defaultValue={groups.find(item => item.id === modalData.group).persianName}
                                             >
-                                            <option selected>{groups.find(item => item.id === modalData.group).persianName}</option>
+                                            <option value="">{isCategorySelected ? "انتخاب کنید" : groups.find(item => item.id === modalData.group)?.persianName}</option>
                                             {editGroups
                                                 .filter(group => group.parentId === selectedٍEditMainGroupId)
                                                 .map((group) => (
-                                                <option key={group.id} value={group.id}>{group.persianName}</option>
+                                                <option key={group.id} value={group.id}>{group?.persianName}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -507,12 +514,11 @@ export function Categori() {
                                                 fontFamily: 'sans',
                                                 fontSize: '14px'
                                             }}
-                                            defaultValue={suubGroups.find(item => item.id === modalData.sub_group).persianName}
                                             onChange={handleEditSuubGroupChange}
                                             >
-                                            <option selected>{suubGroups.find(item => item.id === modalData.sub_group).persianName}</option>
+                                            <option value="">{isCategorySelected ? "انتخاب کنید" : suubGroups.find(item => item.id === modalData.sub_group)?.persianName}</option>
                                             {editsubGroups.map((SubGroup) => (
-                                                <option key={SubGroup.id} value={SubGroup.id}>{SubGroup.persianName}</option>
+                                                <option key={SubGroup.id} value={SubGroup.id}>{SubGroup?.persianName}</option>
                                             ))}
                                         </select>
                                     </div>
@@ -640,7 +646,7 @@ export function Categori() {
                                         onChange={handleSuubGroupChange}>
                                         <option selected>انتخاب کنید</option>
                                         {subGroups.map((SubGroup) => (
-                                            <option key={SubGroup.id} value={SubGroup.id}>{SubGroup.persianName}</option>
+                                            <option key={SubGroup.id} value={SubGroup.id}>{SubGroup?.persianName}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -662,7 +668,7 @@ export function Categori() {
                                         {Groups
                                             .filter(group => group.parentId === selectedMainGroupId)
                                             .map((group) => (
-                                            <option key={group.id} value={group.id}>{group.persianName}</option>
+                                            <option key={group.id} value={group.id}>{group?.persianName}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -682,7 +688,7 @@ export function Categori() {
                                             value={selectedMainGroupId || ''}>
                                             <option selected>انتخاب کنید</option>
                                             {mainGroup.map((group) => (
-                                                <option key={group.id} value={group.id}>{group.persianName}</option>
+                                                <option key={group.id} value={group.id}>{group?.persianName}</option>
                                             ))}
                                         </select>
                                     </div>

@@ -13,6 +13,8 @@ export function Home() {
   const {groups, suubGroups, mainGroups, radioo} = useApiData();
 
   const [getDataUser, setGetDataUser] = useState([]);
+  const [selectedGroupLabel, setSelectedGroupLabel] = useState('انتخاب کنید');
+
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -20,8 +22,8 @@ export function Home() {
   const [mainGroup, setMainGroup] = useState([]);
   const [subGroups, setSubGroups] = useState([]);
   const [Groups, setGroups] = useState([]);
-  const [selectedMainGroupId, setSelectedMainGroupId] = useState(null);
-  const [selectedSubGroupId, setSelectedSubGroupId] = useState(null);
+  const [selectedMainGroupId, setSelectedMainGroupId] = useState('');
+  const [selectedSubGroupId, setSelectedSubGroupId] = useState('');
   const [selectedSuubGroupId, setSelectedSuubGroupId] = useState(null);
   const [selectedCheckboxIds, setSelectedCheckboxIds] = useState([]);
   const [editItem, setEditItem] = useState(null);
@@ -68,6 +70,7 @@ export function Home() {
   const handleMainGroupChange = (e) => {
     const selectedId = parseInt(e.target.value, 10);
     setSelectedMainGroupId(selectedId);
+    setSelectedSubGroupId(null);
 
     axios.get(`https://api.ibrokers.ir/bourse/group/group/`)
       .then((response) => {
@@ -212,6 +215,9 @@ export function Home() {
   const isLoading = getDataUser.length === 0;
   const hasProducts = getDataUser.length > 0;
 
+  const isCategorySelected = !!selectedMainGroupId;
+
+
   return (
     <>
       {modalData !== null && (
@@ -313,15 +319,15 @@ export function Home() {
                       <label> همه گروه ها</label>
                     </div>
                     <div className="div-input-select">
-                      <select class="form-select"
+                      <select
+                        className="form-select"
                         style={{
                           fontFamily: 'sans',
                           fontSize: '14px'
                         }}
                         onChange={handleSubGroupChange}
-                        defaultValue={modalData?.group || modalData?.group}
-                        >
-                        <option selected>{groups.find(item => item.id === modalData.group)?.persianName}</option>
+                      >
+                        <option value="">{isCategorySelected ? "انتخاب کنید" : groups.find(item => item.id === modalData.group)?.persianName}</option>
                         {Groups
                           .filter(group => group.parentId === selectedMainGroupId)
                           .map((group) => (
@@ -345,10 +351,8 @@ export function Home() {
                           fontSize: '14px'
                         }}
                         onChange={handleSuubGroupChange}
-                        defaultValue={suubGroups.find(item => item.id === modalData.sub_group)?.persianName}
                         >
-                          {/* {console.log("modalData?.sub_group id:", suubGroups.find(item => item.id === modalData.sub_group).persianName)} */}
-                        <option selected>{suubGroups.find(item => item.id === modalData.sub_group)?.persianName}</option>
+                        <option value="">{isCategorySelected ? "انتخاب کنید" : suubGroups.find(item => item.id === modalData.sub_group)?.persianName}</option>
                         {subGroups.map((SubGroup) => (
                           <option key={SubGroup.id} value={SubGroup.id}>{SubGroup?.persianName}</option>
                         ))}
