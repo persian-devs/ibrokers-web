@@ -328,7 +328,7 @@ export function Categori() {
     };
 
     const handleEdit = (productId) => {
-        const itemToEdit = getDataUser.find((item) => item.id === productId);
+        const itemToEdit = getDataGroup.find((item) => item.id === productId);
         if (itemToEdit) {
             setEditItem(itemToEdit);
             setModalData({
