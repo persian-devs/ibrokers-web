@@ -13,8 +13,6 @@ export function Home() {
   const {groups, suubGroups, mainGroups, radioo} = useApiData();
 
   const [getDataUser, setGetDataUser] = useState([]);
-  const [selectedGroupLabel, setSelectedGroupLabel] = useState('انتخاب کنید');
-
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -418,7 +416,7 @@ export function Home() {
               </div>
               <div className="itemss s">
                 <div className="it-r">
-                  <p>۱۲۳۴</p>
+                  <p>{data?.user_count}</p>
                 </div>
                 <div className="it-l">
                   <p> : تعداد کاربر ها</p>

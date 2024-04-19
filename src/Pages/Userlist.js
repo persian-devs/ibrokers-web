@@ -192,6 +192,7 @@ export function Userlist() {
             </div>
             <div className="col-p-userlist"> 
               <div className="inset-col-p">
+
                 <div className="div-inset-col-p">
                   <p className="p-res"> نام خانوادگی : </p>
                   <input 
@@ -202,6 +203,7 @@ export function Userlist() {
                     ></input>
                   <p className="p"> : نام خانوادگی</p>
                 </div>
+
                 <div className="div-inset-col-p">
                   <p className="p-res"> نام : </p>
                   <input 
@@ -212,22 +214,23 @@ export function Userlist() {
                     ></input>
                   <p className="p"> : نام</p>
                 </div>
+
                 <div className="div-inset-col-p">
                   <p className="p-res"> شماره تماس : </p>
                   <input 
                     className="input" 
                     type="text"
-                    value={`09${phoneNumber}`}
+                    value={`${phoneNumber}`}
                     onChange={(e) => {
                       const inputValue = e.target.value;
-                      const sanitizedPhoneNumber = inputValue.replace(/\D/g, '');
-                      const limitedPhoneNumber = sanitizedPhoneNumber.slice(2, 11);
-                      
+                      // const sanitizedPhoneNumber = inputValue.replace(/\D/g, '');
+                      const limitedPhoneNumber = inputValue.slice(0, 11);
                       setPhoneNumber(limitedPhoneNumber);
                     }}
                     ></input>
                   <p className="p"> : شماره تماس</p>
                 </div>
+                
               </div>
             </div>
             <div className=" col-input-res">
